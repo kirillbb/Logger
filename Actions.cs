@@ -6,7 +6,32 @@ using System.Threading.Tasks;
 
 namespace Module2HW1
 {
-    class Actions
+    public static class Actions
     {
+        public static Result InfoMethod()
+        {
+            Logger logger = Logger.Instance;
+            logger.WriteLog(Logger.LogType.Info, $"Start method: \t\t\tInfoMethod ");
+
+            return new Result(true);
+        }
+
+        public static Result WarningMethod()
+        {
+            Logger logger = Logger.Instance;
+            logger.WriteLog(Logger.LogType.Warning, $"Skipped logic in method: \tWarningMethod");
+
+            return new Result(true);
+        }
+
+        public static Result ErrorMethod()
+        {
+            string errorText = "I broke a logic..";
+
+            Logger logger = Logger.Instance;
+            logger.WriteLog(Logger.LogType.Error, $"Action failed by a reason: \t{errorText}");
+
+            return new Result(false, errorText);
+        }
     }
 }
