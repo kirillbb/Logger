@@ -9,9 +9,9 @@ namespace Module2HW1
 {
     public class Starter
     {
-        public void Run()
+        public static void Run()
         {
-            Random random = new Random();
+            Random random = new ();
 
             for (int i = 0; i < 100; i++)
             {

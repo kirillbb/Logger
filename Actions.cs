@@ -11,7 +11,7 @@ namespace Module2HW1
         public static Result InfoMethod()
         {
             Logger logger = Logger.Instance;
-            logger.WriteLog(Logger.LogType.Info, $"Start method: \t\t\tInfoMethod ");
+            Logger.WriteLog(Logger.LogType.Info, $"Start method: \t\t\tInfoMethod ");
 
             return new Result(true);
         }
@@ -19,7 +19,7 @@ namespace Module2HW1
         public static Result WarningMethod()
         {
             Logger logger = Logger.Instance;
-            logger.WriteLog(Logger.LogType.Warning, $"Skipped logic in method: \tWarningMethod");
+            Logger.WriteLog(Logger.LogType.Warning, $"Skipped logic in method: \tWarningMethod");
 
             return new Result(true);
         }
@@ -29,7 +29,7 @@ namespace Module2HW1
             string errorText = "I broke a logic..";
 
             Logger logger = Logger.Instance;
-            logger.WriteLog(Logger.LogType.Error, $"Action failed by a reason: \t{errorText}");
+            Logger.WriteLog(Logger.LogType.Error, $"Action failed by a reason: \t{errorText}");
 
             return new Result(false, errorText);
         }

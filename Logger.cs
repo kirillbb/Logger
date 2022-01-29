@@ -8,8 +8,8 @@ namespace Module2HW1
 {
     public partial class Logger
     {
-        private static Logger instance = new Logger();
-        private static List<string> logList = new List<string>();
+        private static Logger instance = new ();
+        private static List<string> logList = new ();
 
         static Logger()
         {
@@ -32,12 +32,13 @@ namespace Module2HW1
             }
         }
 
-        public void WriteLog(object type, string logMesage)
+        public static void WriteLog(object type, string logMesage)
         {
-            string logType = FormatLogType((LogType)type);
+            string logType = FormatLogTypeText((LogType)type);
 
             string logString = $"{DateTime.Now} : {logType} : {logMesage}";
             Console.WriteLine(logString);
+
             AddToLogList(logString);
         }
 
@@ -51,15 +52,15 @@ namespace Module2HW1
             return logList;
         }
 
-        private static string FormatLogType(LogType type)
+        private static string FormatLogTypeText(LogType type)
         {
-            switch (type.ToString())
+            switch (type)
             {
-                case "Error":
+                case LogType.Error:
                     return type.ToString() + "  ";
-                case "Info":
+                case LogType.Info:
                     return type.ToString() + "   ";
-                case "Warning":
+                case LogType.Warning:
                     return type.ToString();
             }
 
