@@ -31,7 +31,7 @@ namespace Module2HW1
                 }
             }
 
-            File.WriteAllLines("log.txt", Logger.GetLogList());
+            Logger.SaveLogsToFile();
         }
     }
 }

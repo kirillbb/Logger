@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,15 +10,7 @@ namespace Module2HW1
     public partial class Logger
     {
         private static Logger instance = new ();
-        private static List<string> logList = new ();
-
-        static Logger()
-        {
-        }
-
-        private Logger()
-        {
-        }
+        private static readonly List<Log> LogList = new ();
 
         public static Logger Instance
         {
@@ -32,39 +25,46 @@ namespace Module2HW1
             }
         }
 
-        public static void WriteLog(object type, string logMesage)
+        public static void WriteLog(LogType type, string logMesage)
         {
             string logType = FormatLogTypeText((LogType)type);
 
-            string logString = $"{DateTime.Now} : {logType} : {logMesage}";
+            string now = DateTime.Now.ToLongTimeString();
+
+            string logString = $"{now} : {logType} : {logMesage}";
             Console.WriteLine(logString);
 
-            AddToLogList(logString);
+            AddLogsToLogList(now, logType, logMesage);
         }
 
-        public static void AddToLogList(string logString)
+        public static void AddLogsToLogList(string now, string logType, string message)
         {
-            logList.Add(logString);
+            LogList.Add(new Log
+            {
+                Time = now, Type = logType, Message = message
+            });
         }
 
-        public static List<string> GetLogList()
+        public static void SaveLogsToFile()
         {
-            return logList;
+            StringBuilder logString = new (string.Empty);
+            for (int i = 0; i < LogList.Count; i++)
+            {
+                logString.AppendLine(LogList[i].ToString());
+            }
+
+            File.WriteAllText("log.txt", logString.ToString());
         }
 
         private static string FormatLogTypeText(LogType type)
         {
-            switch (type)
+            return type switch
             {
-                case LogType.Error:
-                    return type.ToString() + "  ";
-                case LogType.Info:
-                    return type.ToString() + "   ";
-                case LogType.Warning:
-                    return type.ToString();
-            }
-
-            return null;
+                LogType.Error => type.ToString() + "  ",
+                LogType.Info => type.ToString() + "   ",
+                LogType.Warning => type.ToString(),
+                _ => null,
+            };
         }
     }
 }

@@ -14,12 +14,6 @@ namespace Module2HW1
             Error = error;
         }
 
-        public Result(bool status)
-        {
-            Status = status;
-            Error = string.Empty;
-        }
-
         public bool Status { get; private set; }
         public string Error { get; set; }
     }
